@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+
+<fx:root type="is.vidmot.view.FerdSpjald" xmlns:fx="http://javafx.com/fxml">
+    <VBox spacing="10" style="-fx-padding: 15;">
+        <Label text="Heiti ferðar:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="fxHeiti" editable="false"/>
+
+        <Label text="Áfangastaður:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="fxAfangastadur" editable="false"/>
+
+        <Label text="Dagsetning:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="fxDagsetning" editable="false"/>
+    </VBox>
+</fx:root>
