@@ -1,5 +1,6 @@
 package is.vidmot.controller;
 
+import javafx.scene.control.ListCell;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +30,8 @@ public class AdalController {
     /** Hnappur til að eyða valinni ferð. */
     @FXML
     private Button eydaButton;
+    @FXML
+    private Button favoriteButton;
 
     /** Ferðaplanið sem heldur utan um gögn. */
     private FerdaPlan ferdaPlan;
@@ -41,6 +44,7 @@ public class AdalController {
         ferdaPlan = FerdaPlan.getInstance();
         ferdaListView.setItems(ferdaPlan.getFerdir());
         bindButtonStates();
+        setUpCellFactory();
     }
 
     /**
@@ -52,6 +56,50 @@ public class AdalController {
                 ferdaListView.getSelectionModel().selectedItemProperty().isNull());
         eydaButton.disableProperty().bind(
                 ferdaListView.getSelectionModel().selectedItemProperty().isNull());
+        favoriteButton.disableProperty().bind(
+                ferdaListView.getSelectionModel().selectedItemProperty().isNull());
+    }
+
+    /**
+     * Setur upp CellFactory fyrir ListView svo ferðir sem eru favorite
+     * sýna stjörnu og hafa feitletraðan texta.
+     */
+    private void setUpCellFactory() {
+        ferdaListView.setCellFactory(listView -> new ListCell<Ferd>() {
+            @Override
+            protected void updateItem(Ferd ferd, boolean empty) {
+                super.updateItem(ferd, empty);
+                if (empty || ferd == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    // Sýna stjörnu ef favorite
+                    if (ferd.isFavorite()) {
+                        setText("⭐ " + ferd.getNafn() + " - " + ferd.getAfangastadur()
+                                + " (" + ferd.getDagsetning() + ")");
+                        setStyle("-fx-font-weight: bold;");
+                    } else {
+                        setText(ferd.getNafn() + " - " + ferd.getAfangastadur()
+                                + " (" + ferd.getDagsetning() + ")");
+                        setStyle("");
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Togglear favorite stöðu á valinni ferð og uppfærir listann.
+     */
+    @FXML
+    private void onFavorite() {
+        Ferd selectedFerd = ferdaListView.getSelectionModel().getSelectedItem();
+        if (selectedFerd != null) {
+            // Toggle: ef hún var favorite, afmerkja; annars merkja
+            selectedFerd.setFavorite(!selectedFerd.isFavorite());
+            // Refresh listann svo cellan uppfærist
+            ferdaListView.refresh();
+        }
     }
 
     /**

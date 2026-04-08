@@ -1,5 +1,7 @@
 package is.vinnsla;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -14,6 +16,8 @@ public class Ferd {
     private final StringProperty afangastadur = new SimpleStringProperty();
     /** Dagsetning ferðarinnar. */
     private final StringProperty dagsetning = new SimpleStringProperty();
+    /** Hvort ferðin er stjörnumerkt (favorite). */
+    private final BooleanProperty favorite = new SimpleBooleanProperty(false);
 
     /**
      * Smiður sem býr til nýja ferð.
@@ -26,6 +30,33 @@ public class Ferd {
         this.nafn.set(nafn);
         this.afangastadur.set(afangastadur);
         this.dagsetning.set(dagsetning);
+    }
+
+    /**
+     * Skilar BooleanProperty fyrir favorite.
+     *
+     * @return favorite property
+     */
+    public BooleanProperty favoriteProperty() {
+        return favorite;
+    }
+
+    /**
+     * Skilar hvort ferðin er favorite.
+     *
+     * @return true ef favorite, annars false
+     */
+    public Boolean isFavorite() {
+        return favorite.get();
+    }
+
+    /**
+     * Setur favorite stöðu ferðarinnar.
+     *
+     * @param favorite true til að stjörnumerkja, false til að afmerkja
+     */
+    public void setFavorite(boolean favorite) {
+        this.favorite.set(favorite);
     }
 
     /**

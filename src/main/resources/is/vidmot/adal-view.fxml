@@ -18,5 +18,6 @@
         <Button fx:id="skodaButton" text="Skoða" onAction="#onSkoda"/>
         <Button text="Bæta við" onAction="#onBaetaVid"/>
         <Button fx:id="eydaButton" text="Eyða" onAction="#onEyda"/>
+        <Button fx:id="favoriteButton" text="⭐ Favorite" onAction="#onFavorite"/>
     </HBox>
 </VBox>
