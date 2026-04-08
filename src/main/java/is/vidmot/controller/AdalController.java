@@ -15,6 +15,8 @@ import is.vinnsla.Ferd;
 import is.vinnsla.FerdaPlan;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Controller fyrir aðalviðmótið (adal-view.fxml).
@@ -34,9 +36,17 @@ public class AdalController {
     private Button favoriteButton;
     @FXML
     private Button completedButton;
+    @FXML
+    private Button sortButton;
 
     /** Ferðaplanið sem heldur utan um gögn. */
     private FerdaPlan ferdaPlan;
+
+    /** Heldur utan um hvort við erum að raða eftir dagsetningu eða nafni. */
+    private boolean sortByDate = false;
+
+    /** Formatter til að lesa dagsetningar á forminu "dd.MM.yyyy". */
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     /**
      * Frumstillir controllerinn, tengir gögn við ListView og bindur hnappa.
@@ -75,15 +85,43 @@ public class AdalController {
         }
     }
 
+    /**
+     * Raðar listanum: Favorites efst, svo venjulegar, svo completed neðst.
+     * Innan hvers hóps er raðað eftir nafni eða dagsetningu.
+     */
     private void radaLista() {
         ferdaPlan.getFerdir().sort((a, b) -> {
+            // Fyrst: raða eftir hóp (favorite, venjuleg, completed)
             int groupCompare = Integer.compare(getGroupOrder(a), getGroupOrder(b));
             if (groupCompare != 0) {
                 return groupCompare;
             }
-            return a.getNafn().compareToIgnoreCase(b.getNafn());
+            // Svo: innan hóps, raða eftir dagsetningu eða nafni
+            if (sortByDate) {
+                LocalDate dateA = parseDagsetning(a.getDagsetning());
+                LocalDate dateB = parseDagsetning(b.getDagsetning());
+                return dateA.compareTo(dateB);
+            } else {
+                return a.getNafn().compareToIgnoreCase(b.getNafn());
+            }
         });
     }
+
+    /**
+     * Breytir dagsetningu úr streng í LocalDate til að bera saman.
+     * Ef dagsetningin er ólæsileg fer hún aftast.
+     */
+    private LocalDate parseDagsetning(String dagsetning) {
+        try {
+            return LocalDate.parse(dagsetning, formatter);
+        } catch (Exception e) {
+            // Ef dagsetningin er ekki á réttu formi, setja hana aftast
+            return LocalDate.MAX;
+        }
+    }
+
+
+
 
     /**
      * Setur upp CellFactory fyrir ListView svo ferðir sem eru favorite
@@ -126,9 +164,11 @@ public class AdalController {
     private void onFavorite() {
         Ferd selectedFerd = ferdaListView.getSelectionModel().getSelectedItem();
         if (selectedFerd != null) {
-            // Toggle: ef hún var favorite, afmerkja; annars merkja
             selectedFerd.setFavorite(!selectedFerd.isFavorite());
-            // Refresh listann svo cellan uppfærist
+            if (selectedFerd.isCompleted()) {
+                selectedFerd.setFavorite(false);
+            }
+            radaLista();
             ferdaListView.refresh();
         }
     }
@@ -144,6 +184,18 @@ public class AdalController {
             radaLista();
             ferdaListView.refresh();
         }
+    }
+
+    @FXML
+    private void onSort() {
+        sortByDate = !sortByDate;
+        if (sortByDate) {
+            sortButton.setText("🔤 Raða eftir nafni");
+        } else {
+            sortButton.setText("📅 Raða eftir dagsetningu");
+        }
+        radaLista();
+        ferdaListView.refresh();
     }
 
     /**

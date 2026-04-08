@@ -19,6 +19,7 @@
         <Button text="Bæta við" onAction="#onBaetaVid"/>
         <Button fx:id="eydaButton" text="Eyða" onAction="#onEyda"/>
         <Button fx:id="favoriteButton" text="⭐ Favorite" onAction="#onFavorite"/>
-        <Button fx:id="completedButton" text="✅ Lokið" onAction="#onCompleted" />
+        <Button fx:id="completedButton" text="✅ Lokið" onAction="#onCompleted"/>
+        <Button fx:id="sortButton" text="📅 Raða eftir dagsetningu" onAction="#onSort"/>
     </HBox>
 </VBox>
