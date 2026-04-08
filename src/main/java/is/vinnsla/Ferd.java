@@ -18,6 +18,8 @@ public class Ferd {
     private final StringProperty dagsetning = new SimpleStringProperty();
     /** Hvort ferðin er stjörnumerkt (favorite). */
     private final BooleanProperty favorite = new SimpleBooleanProperty(false);
+    /** Hvort ferðinni sé lokið (completed). */
+    private final BooleanProperty completed = new SimpleBooleanProperty(false);
 
     /**
      * Smiður sem býr til nýja ferð.
@@ -57,6 +59,33 @@ public class Ferd {
      */
     public void setFavorite(boolean favorite) {
         this.favorite.set(favorite);
+    }
+
+    /**
+     * Skilar BooleanProperty fyrir completed.
+     *
+     * @return completed property
+     */
+    public BooleanProperty completedProperty() {
+        return completed;
+    }
+
+    /**
+     * Skilar hvort ferðinni sé lokið.
+     *
+     * @return true ef lokið, annars false
+     */
+    public boolean isCompleted() {
+        return completed.get();
+    }
+
+    /**
+     * Setur completed stöðu ferðarinnar.
+     *
+     * @param completed true til að merkja sem lokið, false til að afmerkja
+     */
+    public void setCompleted(boolean completed) {
+        this.completed.set(completed);
     }
 
     /**

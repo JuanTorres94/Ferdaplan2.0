@@ -32,6 +32,8 @@ public class AdalController {
     private Button eydaButton;
     @FXML
     private Button favoriteButton;
+    @FXML
+    private Button completedButton;
 
     /** Ferðaplanið sem heldur utan um gögn. */
     private FerdaPlan ferdaPlan;
@@ -45,6 +47,7 @@ public class AdalController {
         ferdaListView.setItems(ferdaPlan.getFerdir());
         bindButtonStates();
         setUpCellFactory();
+        radaLista();
     }
 
     /**
@@ -58,6 +61,28 @@ public class AdalController {
                 ferdaListView.getSelectionModel().selectedItemProperty().isNull());
         favoriteButton.disableProperty().bind(
                 ferdaListView.getSelectionModel().selectedItemProperty().isNull());
+        completedButton.disableProperty().bind(
+                ferdaListView.getSelectionModel().selectedItemProperty().isNull());
+    }
+
+    private int getGroupOrder(Ferd ferd) {
+        if (ferd.isCompleted()) {
+            return 3;
+        } else if (ferd.isFavorite()) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    private void radaLista() {
+        ferdaPlan.getFerdir().sort((a, b) -> {
+            int groupCompare = Integer.compare(getGroupOrder(a), getGroupOrder(b));
+            if (groupCompare != 0) {
+                return groupCompare;
+            }
+            return a.getNafn().compareToIgnoreCase(b.getNafn());
+        });
     }
 
     /**
@@ -73,14 +98,20 @@ public class AdalController {
                     setText(null);
                     setStyle("");
                 } else {
-                    // Sýna stjörnu ef favorite
-                    if (ferd.isFavorite()) {
-                        setText("⭐ " + ferd.getNafn() + " - " + ferd.getAfangastadur()
-                                + " (" + ferd.getDagsetning() + ")");
+                    String texti = ferd.getNafn() + " - " + ferd.getAfangastadur()
+                            + " (" + ferd.getDagsetning() + ")";
+
+                    if (ferd.isCompleted()) {
+                        // Completed: grár texti og strikaður yfir
+                        setText("✅ " + texti);
+                        setStyle("-fx-text-fill: grey; -fx-strikethrough: true;");
+                    } else if (ferd.isFavorite()) {
+                        // Favorite: stjarna og feitletrað
+                        setText("⭐ " + texti);
                         setStyle("-fx-font-weight: bold;");
                     } else {
-                        setText(ferd.getNafn() + " - " + ferd.getAfangastadur()
-                                + " (" + ferd.getDagsetning() + ")");
+                        // Venjuleg ferð
+                        setText(texti);
                         setStyle("");
                     }
                 }
@@ -98,6 +129,19 @@ public class AdalController {
             // Toggle: ef hún var favorite, afmerkja; annars merkja
             selectedFerd.setFavorite(!selectedFerd.isFavorite());
             // Refresh listann svo cellan uppfærist
+            ferdaListView.refresh();
+        }
+    }
+
+    @FXML
+    private void onCompleted() {
+        Ferd selectedFerd = ferdaListView.getSelectionModel().getSelectedItem();
+        if (selectedFerd != null) {
+            selectedFerd.setCompleted(!selectedFerd.isCompleted());
+            if (selectedFerd.isCompleted()) {
+                selectedFerd.setFavorite(false);
+            }
+            radaLista();
             ferdaListView.refresh();
         }
     }
