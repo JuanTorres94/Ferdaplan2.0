@@ -4,7 +4,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
 <fx:root type="is.vidmot.view.FerdSpjald" xmlns:fx="http://javafx.com/fxml">
+
+    <StackPane style="-fx-background-color: #ddd;" prefHeight="200" maxHeight="200" minHeight="200">
+        <ImageView fx:id="fxCoverImage" fitHeight="200" fitWidth="400" preserveRatio="false" pickOnBounds="true"/>
+    </StackPane>
+
     <VBox spacing="10" style="-fx-padding: 15;">
         <Label text="Heiti ferðar:" style="-fx-font-weight: bold;"/>
         <TextField fx:id="fxHeiti" editable="false"/>

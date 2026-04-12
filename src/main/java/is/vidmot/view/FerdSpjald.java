@@ -1,11 +1,16 @@
 package is.vidmot.view;
 
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+
+import java.io.File;
 
 /**
  * Sérhæfður viðmótshlutur (custom component) sem sýnir upplýsingar um ferð.
@@ -21,6 +26,8 @@ public class FerdSpjald extends VBox {
     /** Textareitur fyrir dagsetningu. */
     @FXML
     private TextField fxDagsetning;
+    @FXML
+    private ImageView fxCoverImage;
 
     /** Property fyrir nafn ferðar. */
     private final StringProperty heiti = new SimpleStringProperty();
@@ -41,6 +48,9 @@ public class FerdSpjald extends VBox {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        defaultImage = new Image(
+                getClass().getResourceAsStream("/is/vidmot/images/StockImage.jpg"));fxCoverImage.setImage(defaultImage);
         bindTextFields();
     }
 
@@ -51,6 +61,32 @@ public class FerdSpjald extends VBox {
         fxHeiti.textProperty().bindBidirectional(heiti);
         fxAfangastadur.textProperty().bindBidirectional(afangastadur);
         fxDagsetning.textProperty().bindBidirectional(dagsetning);
+    }
+
+    /**
+     * Setur forsíðumynd ferðarinnar.
+     * Ef slóðin er null eða tóm er sjálfgefna myndin sýnd.
+     *
+     * @param filePath slóð á mynd á tölvunni
+     */
+    public void setCoverImage(String filePath) {
+        if (filePath != null && !filePath.isEmpty()) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                Image image = new Image(file.toURI().toString());
+                fxCoverImage.setImage(image);
+                return;
+            }
+        }
+        // Ef engin mynd eða skrá finnst ekki, sýna sjálfgefna
+        fxCoverImage.setImage(defaultImage);
+    }
+
+    /**
+     * Skilar ImageView til að geta stillt stærð utan frá.
+     */
+    public ImageView getCoverImageView() {
+        return fxCoverImage;
     }
 
     /**

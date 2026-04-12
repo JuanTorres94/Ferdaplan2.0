@@ -20,6 +20,8 @@ public class Ferd {
     private final BooleanProperty favorite = new SimpleBooleanProperty(false);
     /** Hvort ferðinni sé lokið (completed). */
     private final BooleanProperty completed = new SimpleBooleanProperty(false);
+    /** Slóð á forsíðumynd ferðarinnar. Null ef engin mynd valin. */
+    private final StringProperty myndSlod = new SimpleStringProperty(null);
 
     /**
      * Smiður sem býr til nýja ferð.
@@ -32,6 +34,18 @@ public class Ferd {
         this.nafn.set(nafn);
         this.afangastadur.set(afangastadur);
         this.dagsetning.set(dagsetning);
+    }
+
+    public StringProperty myndSlodProperty() {
+        return myndSlod;
+    }
+
+    public String getMyndSlod() {
+        return myndSlod.get();
+    }
+
+    public void setMyndSlod(String myndSlod) {
+        this.myndSlod.set(myndSlod);
     }
 
     /**
