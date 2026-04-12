@@ -29,16 +29,13 @@ public class FerdSpjald extends VBox {
     @FXML
     private ImageView fxCoverImage;
 
-    /** Property fyrir nafn ferðar. */
     private final StringProperty heiti = new SimpleStringProperty();
-    /** Property fyrir áfangastað. */
     private final StringProperty afangastadur = new SimpleStringProperty();
-    /** Property fyrir dagsetningu. */
     private final StringProperty dagsetning = new SimpleStringProperty();
 
-    /**
-     * Smiður sem hleður FXML skránni og bindur textareiti við properties.
-     */
+    /** Sjálfgefin forsíðumynd sem hleðst úr resources. */
+    private Image defaultImage;
+
     public FerdSpjald() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/is/vidmot/ferd-spjald.fxml"));
         loader.setRoot(this);
@@ -49,8 +46,11 @@ public class FerdSpjald extends VBox {
             e.printStackTrace();
         }
 
+        // Hlaða sjálfgefna mynd
         defaultImage = new Image(
-                getClass().getResourceAsStream("/is/vidmot/images/StockImage.jpg"));fxCoverImage.setImage(defaultImage);
+                getClass().getResourceAsStream("/is/vidmot/images/StockImage.jpg"));
+        fxCoverImage.setImage(defaultImage);
+
         bindTextFields();
     }
 

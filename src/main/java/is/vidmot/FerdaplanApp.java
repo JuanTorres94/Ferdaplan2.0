@@ -25,7 +25,7 @@ public class FerdaplanApp extends Application {
         ViewSwitcher.setStage(stage);
 
         FXMLLoader fxmlLoader = new FXMLLoader(FerdaplanApp.class.getResource("adal-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         stage.setTitle("Ferðaplan");
         stage.setScene(scene);
         stage.show();
