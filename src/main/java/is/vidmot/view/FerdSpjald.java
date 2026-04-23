@@ -13,7 +13,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 
-/** * Sérhæfður viðmótshlutur (custom component) sem sýnir upplýsingar um ferð. * Hleður ferd-spjald.fxml og býður upp á properties til gagnabindingar og pakkalista. */
+/**
+ * Sérhæfður viðmótshlutur (custom component) sem sýnir upplýsingar um ferð.
+ * Hleður ferd-spjald.fxml og býður upp á properties til gagnabindingar og pakkalista.
+ */
 public class FerdSpjald extends VBox {
     /**
      * Textareitur fyrir nafn ferðar.
@@ -50,6 +53,10 @@ public class FerdSpjald extends VBox {
      */
     private final Image defaultImage;
 
+    /**
+     * Býr til nýtt FerdSpjald viðmót og hleður inn FXML-skránni sinni.
+     * Setur einnig inn sjálfgefna forsíðumynd ef hún er til staðar.
+     */
     public FerdSpjald() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/is/vidmot/ferd-spjald.fxml"));
         loader.setRoot(this);
@@ -66,7 +73,7 @@ public class FerdSpjald extends VBox {
             defaultImage = new Image(isStream);
             fxCoverImage.setImage(defaultImage);
         } else {
-            defaultImage = null; // Ef myndin finnst ekki í resources
+            defaultImage = null;
         }
 
         bindTextFields();
@@ -91,7 +98,8 @@ public class FerdSpjald extends VBox {
     }
 
     /**
-     * Bætir nýjum hlut úr TextField í pakkalistann.
+     * Les texta úr textareit og bætir nýjum hlut á pakkalistann ef hann er ekki tómur.
+     * Aðgerð tengd við 'Bæta við' hnapp.
      */
     @FXML
     private void onBaetaVidPakka() {
@@ -103,7 +111,8 @@ public class FerdSpjald extends VBox {
     }
 
     /**
-     * Eyðir útvöldum hlut úr pakkalistanum.
+     * Tekur út þann hlut sem stendur valinn í pakkalistanum í viðmótinu.
+     * Aðgerð tengd við 'Eyða' hnapp.
      */
     @FXML
     private void onEydaPakka() {
@@ -116,7 +125,10 @@ public class FerdSpjald extends VBox {
     }
 
     /**
-     * Setur forsíðumynd ferðarinnar.     * Ef slóðin er null eða tóm er sjálfgefna myndin sýnd.     *     * @param filePath slóð á mynd á tölvunni
+     * Setur forsíðumynd ferðarinnar.
+     * Ef slóðin er null eða tóm er sjálfgefna myndin sýnd.
+     *
+     * @param filePath slóð á mynd á tölvunni
      */
     public void setCoverImage(String filePath) {
         if (filePath != null && !filePath.isEmpty()) {
@@ -134,21 +146,27 @@ public class FerdSpjald extends VBox {
     }
 
     /**
-     * Skilar StringProperty fyrir nafn ferðar.     *     * @return nafn property
+     * Skilar StringProperty fyrir nafn ferðar.
+     *
+     * @return nafn property
      */
     public StringProperty nafnProperty() {
         return heiti;
     }
 
     /**
-     * Skilar StringProperty fyrir áfangastað.     *     * @return áfangastaður property
+     * Skilar StringProperty fyrir áfangastað.
+     *
+     * @return áfangastaður property
      */
     public StringProperty afangastadurProperty() {
         return afangastadur;
     }
 
     /**
-     * Skilar StringProperty fyrir dagsetningu.     *     * @return dagsetning property
+     * Skilar StringProperty fyrir dagsetningu.
+     *
+     * @return dagsetning property
      */
     public StringProperty dagsetningProperty() {
         return dagsetning;

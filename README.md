@@ -33,6 +33,8 @@ Forritið opnast og sýnir lista af ferðum þar sem hægt er að:
 - ✅ Merkja ferðir sem lokið (Completed)
 - 📅 Raða ferðum eftir dagsetningu eða nafni
 - Bæta við, skoða og eyða ferðum
+- Breyta cover mynd á ferðum
+- Gera pökkunarlista fyrir hverja ferð
 
 ## Höfundur
 

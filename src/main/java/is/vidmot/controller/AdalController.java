@@ -124,11 +124,12 @@ public class AdalController {
 
 
     /**
-     * Setur upp CellFactory fyrir ListView svo ferðir sem eru favorite
-     * sýna stjörnu og hafa feitletraðan texta.
+     * Sérsniðin framsetning af ferðum í lista (ListView).
+     * Bætir myndtáknum eða litum við stjörnumerktar (⭐️) ferðir og
+     * ferðir sem búið er að fara í (✅).
      */
     private void setUpCellFactory() {
-        ferdaListView.setCellFactory(listView -> new ListCell<Ferd>() {
+        ferdaListView.setCellFactory(_ -> new ListCell<>() {
             @Override
             protected void updateItem(Ferd ferd, boolean empty) {
                 super.updateItem(ferd, empty);
@@ -255,7 +256,7 @@ public class AdalController {
                 ferdaPlan.getFerdir().remove(selectedFerd);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Gat ekki opnað staðfestingarglugga fyrir eyðingu: " + e.getMessage());
         }
     }
 }

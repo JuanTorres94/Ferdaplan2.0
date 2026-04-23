@@ -138,6 +138,11 @@ public class Ferd {
 
     private final ObservableList<String> pakkalisti = FXCollections.observableArrayList();
 
+    /**
+     * Skilar listanum af hlutum sem búið er að skrá í pakkalistann fyrir þessa ferð.
+     * Þessi listi tengist beint við viðmótið hjá FerdSpjald síðar meir.     *
+     *
+     * @return ObservableList sem inniheldur strengi (heiti á pakkahlutum)     */
     public ObservableList<String> getPakkalisti() {
         return pakkalisti;
     }

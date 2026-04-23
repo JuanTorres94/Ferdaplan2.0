@@ -35,20 +35,24 @@ public class FerdController implements GognInterface {
         }
     }
 
+    /**
+     * Opnar glugga svo notandi geti valið nýja forsíðumynd fyrir ferðina.
+     * Sýnir einungis leyfðar skrár (.png, .jpg, eða .gif).
+     */
     @FXML
     private void onVeljamynd() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Veldu forsíðumynd");
 
-        // Leyfa bara myndir
+        // Setjum síur til að leyfa einungis myndskrár
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Myndir", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 
-        // Opna file picker
+        // Opnum gluggann
         Stage stage = (Stage) fxFerdSpjald.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
-        // Ef notandi valdi mynd, vista og sýna hana
+        // Skráum slóðina ef notandinn fann og valdi mynd
         if (file != null) {
             String filePath = file.getAbsolutePath();
             currentFerd.setMyndSlod(filePath);
