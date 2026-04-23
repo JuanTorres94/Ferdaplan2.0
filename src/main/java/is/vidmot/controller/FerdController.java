@@ -1,5 +1,4 @@
 package is.vidmot.controller;
-
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -7,7 +6,6 @@ import is.vidmot.view.FerdSpjald;
 import is.vidmot.switcher.View;
 import is.vidmot.switcher.ViewSwitcher;
 import is.vinnsla.Ferd;
-
 import java.io.File;
 
 /**
@@ -18,7 +16,6 @@ public class FerdController implements GognInterface {
     /** Sérhæfður viðmótshlutur sem sýnir upplýsingar um ferð. */
     @FXML
     private FerdSpjald fxFerdSpjald;
-
     private Ferd currentFerd;
 
     /**
@@ -34,6 +31,7 @@ public class FerdController implements GognInterface {
             fxFerdSpjald.afangastadurProperty().bind(ferd.afangastadurProperty());
             fxFerdSpjald.dagsetningProperty().bind(ferd.dagsetningProperty());
             fxFerdSpjald.setCoverImage(ferd.getMyndSlod());
+            fxFerdSpjald.setPakkalistiItems(ferd.getPakkalisti());
         }
     }
 

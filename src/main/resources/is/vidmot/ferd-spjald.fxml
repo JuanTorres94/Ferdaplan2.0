@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.geometry.Insets?>
-
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+
 <fx:root type="is.vidmot.view.FerdSpjald" xmlns:fx="http://javafx.com/fxml">
 
+    <!-- Myndin situr efst á stærðinni og tekur fast pláss -->
     <StackPane style="-fx-background-color: #ddd;" prefHeight="200" maxHeight="200" minHeight="200">
-        <ImageView fx:id="fxCoverImage" fitHeight="200" fitWidth="400" preserveRatio="false" pickOnBounds="true"/>
+        <ImageView fx:id="fxCoverImage" fitHeight="200" fitWidth="400"/>
     </StackPane>
 
-    <VBox spacing="10" style="-fx-padding: 15;">
-        <Label text="Heiti ferðar:" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="fxHeiti" editable="false"/>
+    <!-- VBox.vgrow="ALWAYS" lætur þetta kassi teygja sig yfir restina af lóðrétta plássinu -->
+    <HBox spacing="20" style="-fx-padding: 15;" VBox.vgrow="ALWAYS">
 
-        <Label text="Áfangastaður:" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="fxAfangastadur" editable="false"/>
+        <!-- Vinstri hluti: Upplýsingar -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" prefWidth="200">
+            <Label text="Heiti ferðar:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="fxHeiti" editable="false"/>
 
-        <Label text="Dagsetning:" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="fxDagsetning" editable="false"/>
-    </VBox>
+            <Label text="Áfangastaður:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="fxAfangastadur" editable="false"/>
+
+            <Label text="Dagsetning:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="fxDagsetning" editable="false"/>
+        </VBox>
+
+        <!-- Hægri hluti: Pakkalisti -->
+        <VBox spacing="5" HBox.hgrow="ALWAYS" prefWidth="200">
+            <Label text="Pakkalisti:" style="-fx-font-weight: bold;"/>
+
+            <!-- Listinn sjálfur teygir sig yfir dálkinn -->
+            <ListView fx:id="fxPakkalistiView" VBox.vgrow="ALWAYS"/>
+
+            <!-- Textareitur fyrir nýja hluti fær sína línu núna -->
+            <TextField fx:id="fxNyrHluturField" promptText="Nýr hlutur..."/>
+
+            <!-- Takkarnir á alveg nýrri línu, vel dreifðir -->
+            <HBox spacing="5" alignment="CENTER">
+                <Button text="Bæta við" onAction="#onBaetaVidPakka" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="Eyða" onAction="#onEydaPakka" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </fx:root>

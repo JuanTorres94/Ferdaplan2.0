@@ -37,9 +37,11 @@ public class FerdaPlan {
      * Hleður inn sýnidæmum af ferðum þegar forritið ræsist.
      */
     private void initializeSampleTrips() {
-        ferdir.add(new Ferd("Akranes útilegumenn", "Akranesborg", "15.01.2025"));
-        ferdir.add(new Ferd("Snæfellsjökull leiðangur", "Stykkishólmur", "22.02.2025"));
+        ferdir.add(new Ferd("Akranes útilegumenn", "Akranesborg", "15.05.2025"));
+        ferdir.add(new Ferd("Borgarfjörður bæjarferð", "Borgarnes", "12.08.2025"));
+        ferdir.add(new Ferd("Göngutúr að Glym", "Hvalfjörður", "10.02.2025"));
         ferdir.add(new Ferd("Mývatn rannsóknir", "Mývatn", "10.03.2025"));
+        ferdir.add(new Ferd("Snæfellsjökull leiðangur", "Stykkishólmur", "22.01.2025"));
     }
 
     /**

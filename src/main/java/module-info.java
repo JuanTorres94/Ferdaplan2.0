@@ -10,4 +10,5 @@ module is.vidmot {
     exports is.vidmot;
     exports is.vidmot.controller;
     exports is.vidmot.switcher;
+    exports is.vinnsla;
 }

@@ -4,6 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Klasi sem táknar eina ferð.
@@ -36,25 +38,12 @@ public class Ferd {
         this.dagsetning.set(dagsetning);
     }
 
-    public StringProperty myndSlodProperty() {
-        return myndSlod;
-    }
-
     public String getMyndSlod() {
         return myndSlod.get();
     }
 
     public void setMyndSlod(String myndSlod) {
         this.myndSlod.set(myndSlod);
-    }
-
-    /**
-     * Skilar BooleanProperty fyrir favorite.
-     *
-     * @return favorite property
-     */
-    public BooleanProperty favoriteProperty() {
-        return favorite;
     }
 
     /**
@@ -73,15 +62,6 @@ public class Ferd {
      */
     public void setFavorite(boolean favorite) {
         this.favorite.set(favorite);
-    }
-
-    /**
-     * Skilar BooleanProperty fyrir completed.
-     *
-     * @return completed property
-     */
-    public BooleanProperty completedProperty() {
-        return completed;
     }
 
     /**
@@ -121,15 +101,6 @@ public class Ferd {
     }
 
     /**
-     * Setur nafn ferðarinnar.
-     *
-     * @param nafn nýtt nafn
-     */
-    public void setNafn(String nafn) {
-        this.nafn.set(nafn);
-    }
-
-    /**
      * Skilar StringProperty fyrir áfangastað.
      *
      * @return áfangastaður property
@@ -145,15 +116,6 @@ public class Ferd {
      */
     public String getAfangastadur() {
         return afangastadur.get();
-    }
-
-    /**
-     * Setur áfangastað ferðarinnar.
-     *
-     * @param afangastadur nýr áfangastaður
-     */
-    public void setAfangastadur(String afangastadur) {
-        this.afangastadur.set(afangastadur);
     }
 
     /**
@@ -174,13 +136,10 @@ public class Ferd {
         return dagsetning.get();
     }
 
-    /**
-     * Setur dagsetningu ferðarinnar.
-     *
-     * @param dagsetning ný dagsetning
-     */
-    public void setDagsetning(String dagsetning) {
-        this.dagsetning.set(dagsetning);
+    private final ObservableList<String> pakkalisti = FXCollections.observableArrayList();
+
+    public ObservableList<String> getPakkalisti() {
+        return pakkalisti;
     }
 
     /**

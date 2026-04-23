@@ -6,14 +6,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import is.vidmot.view.FerdSpjald?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="is.vidmot.controller.FerdController">
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"      fx:controller="is.vidmot.controller.FerdController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <FerdSpjald fx:id="fxFerdSpjald"/>
+    <!-- Hér er VBox.vgrow="ALWAYS" bætt við til að láta spjaldið teygja sig alveg niður -->
+    <FerdSpjald fx:id="fxFerdSpjald" VBox.vgrow="ALWAYS"/>
 
+    <!-- Takkarnir neðst fá núna bara sitt venjulega pláss -->
     <HBox spacing="10.0" alignment="CENTER">
         <Button text="📷 Velja mynd" onAction="#onVeljamynd"/>
         <Button text="Til baka" onAction="#onTilBaka"/>
